@@ -1,4 +1,4 @@
-# djangoblogapp
+# Django Blog App
 This is a simple blog file. I am using django-admin 3.1.5 and Python 3.8.2rc2 versions while building.
 # Starting Blog App
 To start blog app you need to use a cmd, powershell or another terminal.
