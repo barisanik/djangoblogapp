@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block body %}
+<h3>Makaleler</h3>
+
+{% if request.user.is_authenticated %}
+{% if article %}
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Başlık</th>
+      <th scope="col">Yazar</th>
+      <th scope="col">Oluşturulma Tarihi</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for i in article %}
+    <tr>
+      <th scope="row">{{i.id}}</th>
+      <td> <a href="/articles/detail/{{i.id}}"> {{i.title}} </a></td>
+      <td> <a href="/user/{{i.author}}"> {{i.author}} </a></td>
+      <td> <a> {{i.created_date}} </a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+
+</table>
+
+{% else %}
+<div class="alert alert-danger">Henüz bir makaleniz bulunmuyor.</div>
+{% endif %}
+
+{% else %}
+<div class="alert alert-danger">İçeriği görmek için lütfen giriş yapın.</div>
+{% endif %}
+
+{% endblock %}

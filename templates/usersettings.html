@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block body %}
+<h3> {{request.user}} </h3> <hr>
+
+<button class="btn btn-primary" style="margin-bottom: 1%" type="button" data-bs-toggle="collapse" data-bs-target="#profilAyarları" aria-expanded="false" aria-controls="collapseExample">
+    Profil Ayarları
+  </button>
+<div class="collapse" id="profilAyarları">
+  <div class="card card-body">
+
+<div class="dropdown">
+  <button class="btn btn-danger dropdown-toggle" type="button" style="margin-bottom: 8%" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+    Profil Gizlilik Ayarları
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <li><a class="dropdown-item" href="#">Herkese Açık</a></li>
+    <li><a class="dropdown-item" href="#">Gizli</a></li>
+  </ul>
+
+</div>
+<div class="dropdown">
+  <button class="btn btn-danger dropdown-toggle" type="button" style="margin-bottom: 8%; float:right" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+    Makale Gizlilik Ayarları
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <li><a class="dropdown-item" href="#">Herkese Açık</a></li>
+    <li><a class="dropdown-item" href="#">Gizli</a></li>
+  </ul>
+
+</div>
+
+
+{% endblock %}
