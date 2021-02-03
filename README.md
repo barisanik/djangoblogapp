@@ -1,5 +1,6 @@
 # Django Blog App
-This is a simple blog file. I am using django-admin 3.1.5 and Python 3.8.2rc2 versions while building.
+This is a simple blog file which is made with django-admin 3.1.5, django-crispy-forms 1.10.0 and Python 3.8.2rc2 versions while building. Also I am using sqlite3 database.
+
 # Starting Blog App
 To start blog app you need to use a cmd, powershell or another terminal.
 1. Go to blog file directory in terminal.
