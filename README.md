@@ -1,6 +1,6 @@
 # djangoblogapp
 This is a simple blog file. I am using django-admin 3.1.5 and Python 3.8.2rc2 versions while building.
-#Starting Blog App
+# Starting Blog App
 To start blog app you need to use a cmd, powershell or another terminal.
 1. Go to blog file directory in terminal.
 2. Install django-admin, django-crispy-forms with pip install command.
