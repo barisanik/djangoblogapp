@@ -3,18 +3,17 @@ from django.contrib import auth
 from article import views
 from user import views
 from django.shortcuts import render, redirect, get_object_or_404
-
 import user
 from .forms import RegisterForm, LoginForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
-from article.models import Article # Article tablosu article uygulamasından alındı.
+from article.models import Article # Article model
 
 # Create your views here.
 def registerPage(request):
     form = RegisterForm(request.POST or None)
-    if form.is_valid(): #Clean metodu burada çalışır.
+    if form.is_valid():
         regUsername = form.cleaned_data.get("username")
         regPassword = form.cleaned_data.get("password")
         regMail = form.cleaned_data.get("email")
@@ -76,14 +75,13 @@ def dashboardPage(request):
 
 def userProfile(request, username):
     user = get_object_or_404(User, username = username)
-    #user = User.objects.filter(username = username).first()
     if user:
-        if user == request.user: #Eğer profil giriş yapan kullanıcıya ait ise
+        if user == request.user: 
             article = Article.objects.filter(author = user)
             context = {'user':user,
                         'article':article}
             return render(request, "userprofile.html",context)
-        else: #Eğer profil giriş yapan başka kullanıcı ise
+        else: 
             article = Article.objects.filter(author = user, is_public = 1) # Herkese açık makaleleri getir.
             context = {'user':user,
                         'article':article}
