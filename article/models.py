@@ -1,10 +1,8 @@
 from django.db import models
 
-
 # Create your models here.
-
 class Article(models.Model):
-    author = models.ForeignKey("auth.User", on_delete= models.CASCADE, verbose_name="Yazar") 
+    author = models.ForeignKey("auth.User", on_delete= models.CASCADE, verbose_name="Yazar") # 'on_delete' will help about deleting articles from related user.
     title = models.CharField(max_length=50, verbose_name="Başlık")
     content = models.TextField(verbose_name="İçerik")
     is_public = models.BooleanField(default=1, verbose_name="Makale gizliliği herkese açık olarak kalsın.")
