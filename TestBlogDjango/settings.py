@@ -21,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ')hhz8+-e)iwpvy@x(my(*f4)=0cy$5od%5mh_pk(qz0o#o#0d0'
+SECRET_KEY = 'YOUR_SECRET_KEY'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '192.168.1.61'] #Servera yüklenirken düzenlenmeli:0.0.0.0 şeklinde
+ALLOWED_HOSTS = ['0.0.0.0'] 
 
 
 # Application definition
@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'article', #Article eklendi.
-    'user', #User app'i eklendi.
+    'article', #Article app.
+    'user', #User app
     'crispy_forms', 
 ]
 
@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'TestBlogDjango.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3', #Directory of database file
     }
 }
 
