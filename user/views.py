@@ -1,19 +1,18 @@
-#from _typeshed import ReadableBuffer
 from django.contrib import auth
 from article import views
 from user import views
 from django.shortcuts import render, redirect, get_object_or_404
-import user
+from user.models import UserFollow
 from .forms import RegisterForm, LoginForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
-from article.models import Article # Article model
+from article.models import Article
+# 
 
-# Create your views here.
 def registerPage(request):
     form = RegisterForm(request.POST or None)
-    if form.is_valid():
+    if form.is_valid(): 
         regUsername = form.cleaned_data.get("username")
         regPassword = form.cleaned_data.get("password")
         regMail = form.cleaned_data.get("email")
@@ -52,7 +51,7 @@ def loginPage(request):
         password = form.cleaned_data.get("password")
         user = authenticate(username=username, password= password)
         if user is None:
-            messages.info(request, "Belirtilen kullanıcı bulunamadı. {}".format(user))
+            messages.info(request, "Belirtilen kullanıcı bulunamadı.")
             return render(request, "login.html", context)
         messages.success(request, "Başarıyla giriş yaptınız.")
         login(request, user)
@@ -67,7 +66,39 @@ def logoutPage(request):
     else:
         messages.info(request,"Herhangi açık bir oturum bulunamadı.")
         return redirect("indexPage")
-
+    
+def followUser(request,id):
+    getUser = get_object_or_404(User, id=id)
+    if getUser:
+        checkFollow = UserFollow.objects.filter(followerID = request.user.id, personID = getUser.id).first()
+        if checkFollow:
+            messages.info(request, "Bu kullanıcıyı zaten takip ettiniz.")
+            return redirect("indexPage")
+        else:
+            if (getUser != request.user):
+                newFollow = UserFollow(followerID = request.user.id, personID = getUser.id)
+                newFollow.save()
+                messages.success(request, "{} adlı kullanıcıyı başarıyla takip ettiniz!".format(getUser.username))
+                return redirect("indexPage")
+            else:
+                messages.info(request, "Kendinizi takip edemezsiniz.")
+                return redirect("indexPage")
+    else:
+        messages.info(request, "Takip etmeye çalıştığınız kullanıcı bulunamadı.")
+        return redirect("indexPage")
+    
+    
+def unfollowUser(request,id):
+    getUser = get_object_or_404(User, id=id)
+    checkFollow = UserFollow.objects.filter(followerID = request.user.id, personID = getUser.id).first()
+    if checkFollow:
+        checkFollow.delete()
+        messages.warning(request, "{} adlı kullanıcı takipten çıkarıldı.".format(getUser.username))
+        return redirect("indexPage")
+    else:
+        messages.info(request, "Bir sorun oluştu. Lüten daha sonra tekrar deneyin.")
+        return redirect("indexPage")
+    
 def dashboardPage(request):
     userArticles = Article.objects.filter(author = request.user)
     context = {'articles':userArticles}
@@ -82,11 +113,12 @@ def userProfile(request, username):
                         'article':article}
             return render(request, "userprofile.html",context)
         else: 
-            article = Article.objects.filter(author = user, is_public = 1) # Herkese açık makaleleri getir.
+            article = Article.objects.filter(author = user, is_public = 1) 
+            followCheck = UserFollow.objects.filter(followerID = request.user.id, personID = user.id).first()
             context = {'user':user,
-                        'article':article}
+                        'article':article,
+                        'follow' : followCheck}
             return render(request, "userprofile.html",context)
-    
     else:
         messages.info(request,"Belirtilen profil bulunamadı.")
         return redirect("indexPage")
