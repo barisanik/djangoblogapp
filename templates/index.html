@@ -1,44 +1,19 @@
 {% extends "layout.html" %}
 
 {% block body %}
-
-
 <div class="container">
-
-    <h1>Örnek Başlık</h1>
-<figure>
-  <blockquote class="blockquote">
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-  </blockquote>
-  <figcaption class="blockquote-footer">
-    Someone famous in <cite title="Source Title">Source Title</cite>
-  </figcaption>
-</figure>
-
-</div>
-
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-  Mesaj Butonu
-</button>
-
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">MESAJ BAŞLIĞI</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        MESAJ
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Kabul Et</button>
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Kapat</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
+    <hr>
+    <blockquote class="blockquote text-center">
+    Merhaba. Ben Barış. Birkaç yıldır Python üzerinde çalışıyorum. Bu siteyi ise Django'yu öğrenmek için yapıyorum. Blogun kaynak kodlarını projem bittiğinde paylaşacağım.
+        Eğer blog hakkında daha fazla bilgi almak isterseniz <a href="/about">buraya</a> tıklayın.
+        Geliştirici günlüğüne ulaşmak için ise <a href="/gunluk">buraya</a> tıklayın.
+    </blockquote>
+    <hr>
+    <blockquote class="blockquote text-center">
+        Hello. I am Barış. I have been working on Python for couple years. And I am building this site for learning django framework. I will publish this blog's source codes when it is done.
+        If you want to see more about this blog click <a href="/about">here</a>.
+        You can see my development diary from <a href="/gunluk">here</a>.
+    </blockquote>
+    <hr>
 {% endblock body %}
 
