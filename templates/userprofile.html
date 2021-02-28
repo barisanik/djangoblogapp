@@ -4,53 +4,60 @@
 
 {% if request.user.is_authenticated %}
 
-
-
       <div id="userinfo" class="btn btn-warning" style="float:left">
-      <hr>
-      <span> <h3> {{user.username}} </h3> <hr>
-      <div>
-      <b>Kaydolma Tarihi:</b> {{user.date_joined}} <br>
-      <b> Son Aktiflik:</b> {{user.last_login}} 
-      </div><br>
-      {% if request.user.is_superuser == 1 %}
-      <a href="/user/delete/{{user.id}}" type="submit" class="btn btn-danger form-control">Sil</a> <br> <hr>
-      {% endif %}
+        <hr>
+        <span> <h3> {{user.username}} </h3> </span> <hr>
+        <div>
+            <b>Kaydolma Tarihi:</b> {{user.date_joined}} <br>
+            <b> Son Aktiflik:</b> {{user.last_login}} 
+        </div><br>
+      
+          {% if follow %}
+          
+          <a href="/user/unfollow/{{user.id}}" type="submit" class="btn btn-primary form-control">Takipten Çıkar</a> <br> <hr>
+          
+          {% else %}
+      
+            {% if request.user.username != user.username %}
+            <a href="/user/follow/{{user.id}}" type="submit" class="btn btn-primary form-control">Takip Et</a> <br> <hr>
+            {% endif %}
+          
+          {% endif %}
+    
+          {% if request.user.is_superuser == 1 %}
+          <a href="/user/delete/{{user.id}}" type="submit" class="btn btn-danger form-control">Sil</a> <br> <hr>
+          {% endif %}
       </div>
-
 
       <div style="float:left;margin-left:2%;width:70%">
-      <br>
-      <h4> Son Makaleler </h4>
+          <br>
+          <h4> Son Makaleler </h4>
+    
+          {% if article %}
 
-      {% if article %}
-
-      <table class="table table-hover" style="margin-top: 20px">
-        <thead>
-          <tr>
-            <th scope="col">Başlık</th>
-            <th scope="col">Oluşturulma Tarihi</th>
-          </tr>
-        </thead>
-        <tbody>
-            {% for i in article %}
-          <tr>
-            <td><a href="/articles/detail/{{i.id}}"> {{i.title}} </a></td>
-            <td>{{i.created_date}}</td>
-          </tr>
-            {% endfor %}
-        </tbody>
-      </table>
+          <table class="table table-hover" style="margin-top: 20px">
+            <thead>
+              <tr>
+                <th scope="col">Başlık</th>
+                <th scope="col">Oluşturulma Tarihi</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in article %}
+              <tr>
+                <td><a href="/articles/detail/{{i.id}}"> {{i.title}} </a></td>
+                <td>{{i.created_date}}</td>
+              </tr>
+                {% endfor %}
+            </tbody>
+          </table>
       </div>
-      {% else %}
+            {% else %}
       <div class="alert alert-warning" style="margin-top: 30px">Bu kullanıcının henüz makalesi bulunmuyor.</div>
-      {% endif %}
-
-      </div>
-      {% else %}
+            {% endif %}
+      
+{% else %}
       <div class="alert alert-danger">Lütfen bu sayfayı görmek için giriş yapın.</div>
-      {% endif %}
-    </div>
-  </div>
+{% endif %}
 
 {% endblock %}
